@@ -1,0 +1,26 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Changelog {
+  id        String   @id @default(cuid())
+  title     String
+  content   String   // Markdown 或純文字
+  tags      String[] @default([])
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  email     String?
+  message   String
+  page      String?
+  emoji     String?
+  createdAt DateTime @default(now())
+}
