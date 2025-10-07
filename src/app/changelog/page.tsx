@@ -1,15 +1,40 @@
-import type { Changelog } from "@prisma/client"
-import { prisma } from "@/lib/prisma"
+"use client"
+
+import { useEffect, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
-export const revalidate = 0
+type ChangelogItem = {
+  id: string
+  title: string
+  content: string
+  tags: string[]
+  createdAt: string // ISO string
+}
 
-export default async function ChangelogPage() {
-  const items: Changelog[] = await prisma.changelog.findMany({
-    where: { published: true },
-    orderBy: { createdAt: "desc" },
-  })
+export default function ChangelogPage() {
+  const [items, setItems] = useState<ChangelogItem[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const run = async () => {
+      try {
+        const res = await fetch("/api/changelog", { cache: "no-store" })
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const data: ChangelogItem[] = await res.json()
+        setItems(data)
+      } catch (e: any) {
+        setError(e?.message ?? "載入失敗")
+      } finally {
+        setLoading(false)
+      }
+    }
+    run()
+  }, [])
+
+  if (loading) return <p className="text-sm text-muted-foreground">載入中…</p>
+  if (error)   return <p className="text-sm text-red-600">錯誤：{error}</p>
 
   return (
     <div className="space-y-6">
@@ -21,14 +46,14 @@ export default async function ChangelogPage() {
               <CardTitle className="flex flex-wrap items-center gap-2">
                 <span>{i.title}</span>
                 <span className="text-xs text-muted-foreground">
-                  {i.createdAt.toLocaleDateString("zh-TW")}
+                  {new Date(i.createdAt).toLocaleDateString("zh-TW")}
                 </span>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <p className="whitespace-pre-wrap">{i.content}</p>
               <div className="flex flex-wrap gap-2">
-                {i.tags.map((t, idx) => (
+                {i.tags?.map((t, idx) => (
                   <Badge key={idx} variant="secondary">#{t}</Badge>
                 ))}
               </div>
