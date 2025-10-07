@@ -3,7 +3,7 @@ import "server-only"
 import { prisma } from "@/lib/prisma"
 
 // 用 findMany 的回傳型別自動推斷單筆資料型別
-type Row = Awaited<ReturnType<typeof prisma.changelog.findMany>>[string]
+type Row = Awaited<ReturnType<typeof prisma.changelog.findMany>>[number]
 // print
 
 // 伺服端查詢：回傳已發佈項目
