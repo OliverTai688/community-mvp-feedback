@@ -24,8 +24,10 @@ export default function ChangelogPage() {
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         const data: ChangelogItem[] = await res.json()
         setItems(data)
-      } catch (e: any) {
-        setError(e?.message ?? "載入失敗")
+      } catch (err) {
+        const message =
+          err instanceof Error ? err.message : "載入失敗"
+        setError(message)
       } finally {
         setLoading(false)
       }
@@ -34,7 +36,7 @@ export default function ChangelogPage() {
   }, [])
 
   if (loading) return <p className="text-sm text-muted-foreground">載入中…</p>
-  if (error)   return <p className="text-sm text-red-600">錯誤：{error}</p>
+  if (error) return <p className="text-sm text-red-600">錯誤：{error}</p>
 
   return (
     <div className="space-y-6">
@@ -54,7 +56,9 @@ export default function ChangelogPage() {
               <p className="whitespace-pre-wrap">{i.content}</p>
               <div className="flex flex-wrap gap-2">
                 {i.tags?.map((t, idx) => (
-                  <Badge key={idx} variant="secondary">#{t}</Badge>
+                  <Badge key={idx} variant="secondary">
+                    #{t}
+                  </Badge>
                 ))}
               </div>
             </CardContent>
