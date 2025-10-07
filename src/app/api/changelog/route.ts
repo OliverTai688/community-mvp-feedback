@@ -8,13 +8,16 @@ export async function GET() {
     take: 50,
   })
 
-  // 把 Date 轉成字串，Json (tags) 保留陣列
-  const data = rows.map((r) => ({
+  // 用回傳型別自動推斷單筆資料型別，避免 any
+  type Row = Awaited<ReturnType<typeof prisma.changelog.findMany>>[number]
+
+  const data = rows.map((r: Row) => ({
     id: r.id,
     title: r.title,
     content: r.content,
-    tags: Array.isArray(r.tags) ? r.tags : [],
-    createdAt: r.createdAt.toISOString(),
+    tags: r.tags, // String[]，可直接回傳
+    createdAt: r.createdAt.toISOString(), // Date -> string
+    published: r.published,
   }))
 
   return NextResponse.json(data)
