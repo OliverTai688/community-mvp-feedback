@@ -12,6 +12,8 @@ model Changelog {
   title     String
   content   String   // Markdown 或純文字
   tags      String[] @default([])
+  coverUrl  String?             // 單張封面
+  images    String[] @default([]) // 多張圖片 URL
   published Boolean  @default(true)
   createdAt DateTime @default(now())
 }
