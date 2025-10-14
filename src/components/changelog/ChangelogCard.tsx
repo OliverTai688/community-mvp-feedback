@@ -6,9 +6,9 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
 import { Clock, ArrowRight } from "lucide-react"
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
-import DOMPurify from "isomorphic-dompurify" // 👈 新增這行（確保 SSR 可用）
+import DOMPurify from "isomorphic-dompurify"
 
-type ChangelogCardProps = {
+interface ChangelogCardProps {
   id: string
   title: string
   content: string
@@ -17,11 +17,17 @@ type ChangelogCardProps = {
   tags?: string[]
 }
 
-export function ChangelogCard({ id, title, content, createdAt, coverUrl, tags = [] }: ChangelogCardProps) {
+export function ChangelogCard({
+  id,
+  title,
+  content,
+  createdAt,
+  coverUrl,
+  tags = [],
+}: ChangelogCardProps) {
   const isNew = new Date().getTime() - new Date(createdAt).getTime() < 3 * 24 * 60 * 60 * 1000
 
-  // 🕓 時間格式
-  const getTimeAgo = (dateStr: string) => {
+  const getTimeAgo = (dateStr: string): string => {
     const diff = Date.now() - new Date(dateStr).getTime()
     const hours = Math.floor(diff / (1000 * 60 * 60))
     if (hours < 24) return `${hours} 小時前`
@@ -29,7 +35,6 @@ export function ChangelogCard({ id, title, content, createdAt, coverUrl, tags = 
     return `${days} 天前`
   }
 
-  // 🧼 安全清理 HTML
   const safeHTML = DOMPurify.sanitize(content)
 
   return (
@@ -65,7 +70,6 @@ export function ChangelogCard({ id, title, content, createdAt, coverUrl, tags = 
           </div>
         )}
 
-        {/* 內文區塊 */}
         <CardHeader className="relative pb-3">
           <CardTitle className="text-lg font-semibold line-clamp-2 text-slate-900 dark:text-slate-100 group-hover:text-blue-600 transition-colors">
             {title}
@@ -73,16 +77,18 @@ export function ChangelogCard({ id, title, content, createdAt, coverUrl, tags = 
         </CardHeader>
 
         <CardContent className="relative pb-4 space-y-3">
-          {/* ✅ 改成渲染 HTML */}
-          {/* <div
-            className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3 prose prose-slate dark:prose-invert max-w-none"
-            dangerouslySetInnerHTML={{ __html: safeHTML }}
-          /> */}
+          {/* ✅ 安全渲染 HTML（僅 client side） */}
+          {typeof window !== "undefined" && content && (
+            <div
+              className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3 prose prose-slate dark:prose-invert max-w-none"
+              dangerouslySetInnerHTML={{ __html: safeHTML }}
+            />
+          )}
 
           {/* 標籤區 */}
           {tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
-              {tags.map((tag) => (
+              {tags.map((tag: string) => (
                 <Badge key={`${id}-${tag}`} variant="secondary">
                   #{tag}
                 </Badge>
@@ -91,7 +97,6 @@ export function ChangelogCard({ id, title, content, createdAt, coverUrl, tags = 
           )}
         </CardContent>
 
-        {/* 底部資訊 */}
         <CardFooter className="relative flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
           <div className="flex items-center gap-2 text-xs text-slate-500">
             <Clock className="w-3.5 h-3.5" />

@@ -12,7 +12,7 @@ interface ChangelogItem {
   tags: string[]
   coverUrl?: string | null
   images?: string[]
-  createdAt: string // ISO string
+  createdAt: string
   published?: boolean
 }
 
@@ -23,7 +23,6 @@ interface ApiResponse {
 
 const PAGE_SIZE = 9
 
-// === 主元件 ===
 export default function ChangelogPage() {
   const [items, setItems] = useState<ChangelogItem[]>([])
   const [nextCursor, setNextCursor] = useState<string | null>(null)
@@ -31,7 +30,6 @@ export default function ChangelogPage() {
   const [loadingMore, setLoadingMore] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // ✅ 明確宣告回傳 Promise<ApiResponse>
   const fetchPage = useCallback(async (cursor?: string): Promise<ApiResponse> => {
     const qs = new URLSearchParams()
     qs.set("limit", String(PAGE_SIZE))
@@ -39,11 +37,9 @@ export default function ChangelogPage() {
 
     const res = await fetch(`/api/changelog?${qs.toString()}`, { cache: "no-store" })
     if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    const data = (await res.json()) as ApiResponse
-    return data
+    return (await res.json()) as ApiResponse
   }, [])
 
-  // 初次載入
   useEffect(() => {
     const run = async (): Promise<void> => {
       try {
@@ -61,7 +57,6 @@ export default function ChangelogPage() {
     void run()
   }, [fetchPage])
 
-  // 載入更多
   const loadMore = async (): Promise<void> => {
     if (!nextCursor) return
     try {
@@ -86,9 +81,8 @@ export default function ChangelogPage() {
         更新日誌
       </h1>
 
-      {/* 卡片清單 */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {items.map((item) => (
+        {items.map((item: ChangelogItem) => (
           <ChangelogCard
             key={item.id}
             id={item.id}
@@ -101,14 +95,10 @@ export default function ChangelogPage() {
         ))}
       </div>
 
-      {/* 空狀態 */}
       {items.length === 0 && (
-        <p className="text-sm text-muted-foreground text-center py-12">
-          尚無更新。
-        </p>
+        <p className="text-sm text-muted-foreground text-center py-12">尚無更新。</p>
       )}
 
-      {/* 載入更多 */}
       {nextCursor && (
         <div className="flex justify-center pt-6">
           <Button onClick={loadMore} disabled={loadingMore}>
