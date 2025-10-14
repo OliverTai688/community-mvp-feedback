@@ -4,7 +4,8 @@ import { useEffect, useState, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { ChangelogCard } from "@/components/changelog/ChangelogCard"
 
-type ChangelogItem = {
+// === 型別定義 ===
+interface ChangelogItem {
   id: string
   title: string
   content: string
@@ -15,13 +16,14 @@ type ChangelogItem = {
   published?: boolean
 }
 
-type ApiResponse = {
+interface ApiResponse {
   items: ChangelogItem[]
   nextCursor: string | null
 }
 
 const PAGE_SIZE = 9
 
+// === 主元件 ===
 export default function ChangelogPage() {
   const [items, setItems] = useState<ChangelogItem[]>([])
   const [nextCursor, setNextCursor] = useState<string | null>(null)
@@ -29,44 +31,45 @@ export default function ChangelogPage() {
   const [loadingMore, setLoadingMore] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const fetchPage = useCallback(async (cursor?: string) => {
+  // ✅ 明確宣告回傳 Promise<ApiResponse>
+  const fetchPage = useCallback(async (cursor?: string): Promise<ApiResponse> => {
     const qs = new URLSearchParams()
     qs.set("limit", String(PAGE_SIZE))
     if (cursor) qs.set("cursor", cursor)
 
     const res = await fetch(`/api/changelog?${qs.toString()}`, { cache: "no-store" })
     if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    const data: ApiResponse = await res.json()
+    const data = (await res.json()) as ApiResponse
     return data
   }, [])
 
   // 初次載入
   useEffect(() => {
-    const run = async () => {
+    const run = async (): Promise<void> => {
       try {
         setLoading(true)
         const data = await fetchPage()
         setItems(data.items)
         setNextCursor(data.nextCursor)
-      } catch (err) {
+      } catch (err: unknown) {
         const message = err instanceof Error ? err.message : "載入失敗"
         setError(message)
       } finally {
         setLoading(false)
       }
     }
-    run()
+    void run()
   }, [fetchPage])
 
   // 載入更多
-  const loadMore = async () => {
+  const loadMore = async (): Promise<void> => {
     if (!nextCursor) return
     try {
       setLoadingMore(true)
       const data = await fetchPage(nextCursor)
-      setItems(prev => [...prev, ...data.items])
+      setItems((prev) => [...prev, ...data.items])
       setNextCursor(data.nextCursor)
-    } catch (err) {
+    } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "載入失敗"
       setError(message)
     } finally {
@@ -92,7 +95,6 @@ export default function ChangelogPage() {
             title={item.title}
             content={item.content}
             createdAt={item.createdAt}
-            // 新增封面圖與標籤支援
             coverUrl={item.coverUrl ?? undefined}
             tags={item.tags ?? []}
           />
