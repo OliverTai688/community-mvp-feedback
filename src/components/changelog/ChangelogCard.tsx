@@ -78,12 +78,12 @@ export function ChangelogCard({
 
         <CardContent className="relative pb-4 space-y-3">
           {/* ✅ 安全渲染 HTML（僅 client side） */}
-          {typeof window !== "undefined" && content && (
+          {/* {typeof window !== "undefined" && content && (
             <div
               className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3 prose prose-slate dark:prose-invert max-w-none"
               dangerouslySetInnerHTML={{ __html: safeHTML }}
             />
-          )}
+          )} */}
 
           {/* 標籤區 */}
           {tags.length > 0 && (
