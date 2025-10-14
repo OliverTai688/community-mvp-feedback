@@ -98,10 +98,10 @@ export default function HeroMagic() {
               "hover:shadow-xl hover:shadow-blue-500/40 hover:scale-105 transition-all duration-300"
             )}
           >
-            <Link href="/spinai" aria-label="前往體驗 SpinAI">
+            <Link href="/spinai" aria-label="前往體驗 誠問AI">
               <AnimatedShinyText className="inline-flex items-center text-white font-semibold">
                 <Bot className="mr-2 h-5 w-5 text-white group-hover:rotate-12 transition-transform" />
-                SpinAI 即將推出
+                誠問AI 即將推出
               </AnimatedShinyText>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
             </Link>

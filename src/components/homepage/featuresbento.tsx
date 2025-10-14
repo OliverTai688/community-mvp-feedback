@@ -12,7 +12,7 @@ export default function FeaturesBento() {
     const features = [
         {
             Icon: Bot,
-            name: "體驗 SpinAI",
+            name: "體驗 誠問AI",
             description: "立即體驗 AI 對話與推進工具，感受智慧驅動的生產力提升。",
             href: "/spinai",
             cta: "查看更多",
