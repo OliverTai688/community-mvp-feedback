@@ -2,33 +2,33 @@ import { NextResponse, NextRequest } from "next/server"
 import { prisma } from "@/lib/prisma"
 
 /**
- * GET /api/changelog?limit=20&cursor=<id>
- * - 回傳已發佈 changelog，含 coverUrl / images
- * - 分頁：回傳 nextCursor（用於下一頁）
+ * GET /api/changelog?limit=20&cursor=<id>&includeUnpublished=true
  */
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const limitParam = searchParams.get("limit")
   const cursor = searchParams.get("cursor")
+  const includeUnpublished = searchParams.get("includeUnpublished") === "true"
+  const token = req.headers.get("x-admin-token")
+
+  // 如果沒 token 或 token 不符，就只能看已發布
+  const canSeeAll = !!token && token === process.env.ADMIN_TOKEN
 
   const limit = Math.max(1, Math.min(Number(limitParam ?? 20), 100))
-
   const rows = await prisma.changelog.findMany({
-    where: { published: true },
+    where: canSeeAll && includeUnpublished ? {} : { published: true },
     orderBy: [
       { createdAt: "desc" },
-      { id: "desc" }, // 確保游標排序穩定
+      { id: "desc" },
     ],
-    take: limit + 1, // 多抓一筆來判斷是否還有下一頁
+    take: limit + 1,
     ...(cursor ? { cursor: { id: cursor }, skip: 1 } : {}),
   })
-
-  type Row = typeof rows[number]
 
   const hasMore = rows.length > limit
   const pageItems = hasMore ? rows.slice(0, limit) : rows
 
-  const data = pageItems.map((r: Row) => ({
+  const data = pageItems.map((r) => ({
     id: r.id,
     title: r.title,
     content: r.content,
@@ -46,16 +46,7 @@ export async function GET(req: NextRequest) {
 
 /**
  * POST /api/changelog
- * Body:
- * {
- *   "title": string,
- *   "content": string,
- *   "tags"?: string[],
- *   "coverUrl"?: string | null,
- *   "images"?: string[],
- *   "published"?: boolean
- * }
- * 建議用 ADMIN_TOKEN 簡單防護（在 .env / Vercel 設定）
+ * 需 header: x-admin-token
  */
 export async function POST(req: NextRequest) {
   const header = req.headers.get("x-admin-token")
@@ -63,7 +54,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 })
   }
 
-  const body = await req.json().catch(() => null) as {
+  const body = (await req.json().catch(() => null)) as {
     title?: string
     content?: string
     tags?: unknown
@@ -76,11 +67,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "缺少標題或內容" }, { status: 400 })
   }
 
-  const normTags =
-    Array.isArray(body.tags) ? body.tags.map(String).map((t) => t.trim()).filter(Boolean) : []
-
-  const normImages =
-    Array.isArray(body.images) ? body.images.map(String).map((u) => u.trim()).filter(Boolean) : []
+  const normTags = Array.isArray(body.tags)
+    ? body.tags.map(String).map((t) => t.trim()).filter(Boolean)
+    : []
+  const normImages = Array.isArray(body.images)
+    ? body.images.map(String).map((u) => u.trim()).filter(Boolean)
+    : []
 
   const row = await prisma.changelog.create({
     data: {

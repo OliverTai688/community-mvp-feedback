@@ -1,8 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import ReactMarkdown from "react-markdown"
-import remarkGfm from "remark-gfm"
+import { useState, useEffect, Key, JSXElementConstructor, ReactElement, ReactNode, ReactPortal } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,18 +10,24 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { FileText, Sparkles } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
-export default function EditorPreview() {
+export default function EditorPreview({
+    initialData,
+    isEditing = false,
+}: {
+    initialData?: any
+    isEditing?: boolean
+}) {
     const router = useRouter()
     const [submitting, setSubmitting] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
     const [form, setForm] = useState({
         token: "",
-        title: "",
-        content: "",
-        tags: "",
-        coverUrl: "",
-        images: "",
+        title: initialData?.title || "",
+        content: initialData?.content || "",
+        tags: initialData?.tags?.join(", ") || "",
+        coverUrl: initialData?.coverUrl || "",
+        images: initialData?.images?.join("\n") || "",
     })
     const [now, setNow] = useState<string>("")
 
@@ -40,24 +44,26 @@ export default function EditorPreview() {
         setError(null)
         setSubmitting(true)
         try {
-            const res = await fetch("/api/changelog/new", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(form),
-            })
+            const res = await fetch(
+                isEditing ? `/api/changelog/${initialData.id}` : "/api/changelog/new",
+                {
+                    method: isEditing ? "PUT" : "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(form),
+                }
+            )
             const json = await res.json()
             if (!res.ok) throw new Error(json?.error || `HTTP ${res.status}`)
-            // 送你到剛建立的文章頁
-            router.push(`/changelog/${json.id}`)
+            router.push(`/changelog/${json.id || initialData.id}`)
         } catch (err) {
-            setError(err instanceof Error ? err.message : "發布失敗")
+            setError(err instanceof Error ? err.message : "儲存失敗")
         } finally {
             setSubmitting(false)
         }
     }
 
-    const tagList = form.tags.split(",").map(t => t.trim()).filter(Boolean)
-    const imageList = form.images.split("\n").map(s => s.trim()).filter(Boolean)
+    const tagList = form.tags.split(",").map((t: string) => t.trim()).filter(Boolean)
+    const imageList = form.images.split("\n").map((s: string) => s.trim()).filter(Boolean)
 
     return (
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8">
@@ -117,7 +123,7 @@ export default function EditorPreview() {
 
                             <Button type="submit" disabled={submitting} className="w-full">
                                 <Sparkles className="w-4 h-4 mr-2" />
-                                {submitting ? "發布中…" : "發布更新"}
+                                {submitting ? "儲存中…" : isEditing ? "更新內容" : "發布更新"}
                             </Button>
                         </form>
                     </CardContent>
@@ -150,7 +156,7 @@ export default function EditorPreview() {
 
                         {imageList.length > 0 && (
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                                {imageList.map((url, idx) => (
+                                {imageList.map((url: string | Blob | undefined, idx: Key | null | undefined) => (
                                     <img key={idx} src={url} alt={`img-${idx}`} className="rounded-md w-full h-32 object-cover" />
                                 ))}
                             </div>
@@ -158,7 +164,7 @@ export default function EditorPreview() {
 
                         {tagList.length > 0 && (
                             <div className="flex flex-wrap gap-2 pt-2">
-                                {tagList.map((tag, idx) => (
+                                {tagList.map((tag: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined, idx: Key | null | undefined) => (
                                     <Badge key={idx} variant="secondary">
                                         #{tag}
                                     </Badge>

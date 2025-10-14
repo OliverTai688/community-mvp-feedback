@@ -15,7 +15,7 @@ export default function FeaturesBento() {
             name: "體驗 SpinAI",
             description: "立即體驗 AI 對話與推進工具，感受智慧驅動的生產力提升。",
             href: "/spinai",
-            cta: "開始體驗",
+            cta: "查看更多",
             badge: "最受歡迎",
             badgeColor: "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800",
             iconClass:
