@@ -1,16 +1,16 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
-  const id = params.id
+export async function GET(_req: NextRequest, context: { params: Promise<{ id: string }> }) {
+  const { id } = await context.params
   const item = await prisma.changelog.findUnique({ where: { id } })
   if (!item) return NextResponse.json({ error: "Not found" }, { status: 404 })
   return NextResponse.json(item)
 }
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id
+    const { id } = await context.params
     const payload = (await req.json()) as {
       token?: string
       title?: string
@@ -49,9 +49,9 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id
+    const { id } = await context.params
     const payload = (await req.json().catch(() => ({}))) as { token?: string }
     const adminToken = process.env.ADMIN_TOKEN
     const token = (payload.token || req.headers.get("x-admin-token")) ?? ""
