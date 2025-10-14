@@ -6,7 +6,6 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
 import { Clock, ArrowRight } from "lucide-react"
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
-import DOMPurify from "isomorphic-dompurify"
 
 interface ChangelogCardProps {
   id: string
@@ -35,7 +34,6 @@ export function ChangelogCard({
     return `${days} 天前`
   }
 
-  const safeHTML = DOMPurify.sanitize(content)
 
   return (
     <motion.div
