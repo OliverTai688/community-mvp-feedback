@@ -12,16 +12,7 @@ export default function SpinAIPage() {
         <SpinAIIntro />
 
         {/* 按鈕區塊 */}
-        <div className="flex justify-center gap-3 pt-8">
-          <Button asChild>
-            <Link href="https://your-spinai-demo.com" target="_blank">
-              前往體驗 誠問AI Demo
-            </Link>
-          </Button>
-          <Button variant="outline" asChild>
-            <Link href="/">返回首頁</Link>
-          </Button>
-        </div>
+        
       </div>
     </main>
   )

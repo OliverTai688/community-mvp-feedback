@@ -259,20 +259,22 @@ export function SpinAIIntro() {
                                     </div>
                                 </div>
                             </motion.div>
-                            <motion.div
-                                initial={{ opacity: 0, x: 40 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.6 }}
-                                viewport={{ once: true }}
-                                className="relative"
-                            >
-                                <div className="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200 rounded-2xl p-8 h-72 flex items-center justify-center">
-                                    <div className="text-center">
-                                        <p className="text-gray-600 text-lg font-medium">新增區塊</p>
-                                        <p className="text-gray-500 text-sm mt-2">你可以在這裡放置演示截圖或影片</p>
-                                    </div>
-                                </div>
-                            </motion.div>
+                           <motion.div
+  initial={{ opacity: 0, x: 40 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.6 }}
+  viewport={{ once: true }}
+  className="relative"
+>
+  <div className="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200 rounded-2xl overflow-hidden h-72 flex items-center justify-center">
+    <img
+      src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2340"
+      alt="AI Example"
+      className="object-cover w-full h-full"
+    />
+  </div>
+</motion.div>
+
                         </div>
                     </div>
                 </motion.section>
@@ -373,7 +375,7 @@ export function SpinAIIntro() {
                                     </a>
                                 </motion.div>
 
-                                <motion.div variants={itemVariants}>
+                                {/* <motion.div variants={itemVariants}>
                                     <div className="inline-flex items-center gap-6 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-8 py-4">
                                         <div className="flex items-center gap-2">
                                             <Calendar className="w-5 h-5 text-white" />
@@ -398,10 +400,10 @@ export function SpinAIIntro() {
                                             </div>
                                         </div>
                                     </div>
-                                </motion.div>
+                                </motion.div> */}
 
                                 <motion.p variants={itemVariants} className="text-blue-100 text-sm pt-4">
-                                    — 誠交俱樂部
+                                    — OneLink
                                 </motion.p>
                             </motion.div>
                         </div>
@@ -411,7 +413,7 @@ export function SpinAIIntro() {
                 {/* Footer */}
                 <footer className="border-t border-gray-200 py-12 px-4 sm:px-6 lg:px-8 bg-white">
                     <div className="max-w-6xl mx-auto text-center text-gray-500 text-sm">
-                        <p>© 2025 誠問AI - 誠交俱樂部。保留所有權利。</p>
+                        <p>© 2025 誠問AI - OneLink。保留所有權利。</p>
                     </div>
                 </footer>
             </div>
