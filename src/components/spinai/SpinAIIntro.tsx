@@ -280,55 +280,59 @@ export function SpinAIIntro() {
                 </motion.section>
 
                 {/* Testimonials Section */}
-                <motion.section
-                    className="py-20 px-4 sm:px-6 lg:px-8"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
-                >
-                    <div className="max-w-6xl mx-auto">
-                        <motion.div
-                            className="text-center mb-16"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                            viewport={{ once: true }}
-                        >
-                            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">使用者案例</h2>
-                            <p className="text-gray-600 text-lg">來自專業顧問的真實回饋</p>
-                        </motion.div>
+                {/* 替換這整段 cards 區塊 */}
+<div className="grid md:grid-cols-3 gap-6">
+  {[
+    {
+      quote: "誠問AI讓對話變簡單，客戶願意說出真正的需求跟想法",
+      name: "保險小姐姐",
+      org: "OO人壽",
+    },
+    {
+      quote:
+        "我是新人，原本很怕每次見客戶不知道怎麼問問題跟聊天，有了誠問，現在出門都很有底氣。",
+      name: "黃小美",
+      org: "OO保經",
+    },
+    {
+      quote: "誠問幫我全方位設想好問句，讓提問更容易了。",
+      name: "小宇襄理",
+      org: "OO人壽",
+    },
+  ].map((t, i) => (
+    <motion.div
+      key={i}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: (i + 1) * 0.1 }}
+      viewport={{ once: true }}
+      className="flex flex-col justify-between h-full bg-white border-2 border-gray-200 rounded-2xl p-6 hover:border-blue-200 transition-all duration-300 hover:shadow-lg"
+    >
+      {/* ⭐ 評分與回饋內容 */}
+      <div>
+        <div className="flex gap-1 mb-4" aria-label="5-star rating">
+          {Array.from({ length: 5 }).map((_, j) => (
+            <span key={j} className="text-blue-500 text-lg leading-none">★</span>
+          ))}
+        </div>
+        <p className="text-gray-700 text-base mb-6 leading-relaxed italic">
+          “{t.quote}”
+        </p>
+      </div>
 
-                        <div className="grid md:grid-cols-3 gap-6">
-                            {[1, 2, 3].map((i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6, delay: i * 0.1 }}
-                                    viewport={{ once: true }}
-                                    className="bg-white border-2 border-gray-200 rounded-2xl p-6 hover:border-blue-200 transition-all duration-300 hover:shadow-md"
-                                >
-                                    <div className="flex gap-1 mb-4">
-                                        {[...Array(5)].map((_, j) => (
-                                            <span key={j} className="text-blue-500">★</span>
-                                        ))}
-                                    </div>
-                                    <p className="text-gray-700 mb-6 italic">
-                                        &quot;待填資料&quot;
-                                    </p>
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full" />
-                                        <div>
-                                            <p className="font-bold text-sm text-gray-900">使用者名稱</p>
-                                            <p className="text-gray-500 text-xs">職位/公司</p>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-                </motion.section>
+      {/* 👤 使用者資訊區固定底部 */}
+      <div className="flex items-center gap-3 mt-auto pt-4 border-t border-gray-100">
+        <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full shrink-0" />
+        <div className="flex flex-col">
+          <p className="text-sm font-semibold text-gray-900">{t.org}</p>
+          <p className="text-xs text-gray-500">{t.name}</p>
+        </div>
+      </div>
+    </motion.div>
+  ))}
+</div>
+
+
 
                 {/* CTA Section */}
                 <motion.section
@@ -370,7 +374,7 @@ export function SpinAIIntro() {
                                         className="px-8 py-4 bg-white text-blue-600 hover:bg-blue-50 rounded-lg font-bold text-lg transition-all duration-300 hover:shadow-xl flex items-center gap-2 group"
                                     >
                                         <Clock className="w-5 h-5" />
-                                        前往體驗 誠問AI Demo
+                                        前往填寫 誠問AI Demo 早鳥表單
                                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                     </a>
                                 </motion.div>

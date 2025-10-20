@@ -31,7 +31,7 @@ export async function POST(req: Request) {
 
     const mailOptions = {
       from: `"Feedback Form" <${process.env.GMAIL_USER}>`,
-      to: "taioliver688@gmail.com", // 📬 收件人信箱
+      to: "inbest.2north@gmail.com", // 📬 收件人信箱
       subject: `新的回饋訊息${email ? ` 來自 ${email}` : ""}`,
       html: `
         <h2>📬 收到新的回饋意見</h2>
