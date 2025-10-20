@@ -6,8 +6,8 @@ import { Inter } from "next/font/google"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "YourProduct — Build in public",
-  description: "Changelog + Feedback + Community",
+  title: "OneLink - 誠交專屬社群",
+  description: "從社群出發打造專屬誠交俱樂部的AI生態",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

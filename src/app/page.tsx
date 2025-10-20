@@ -16,12 +16,12 @@ export default async function HomePage() {
     content: r.content,
     createdAt: r.createdAt.toISOString(),
   }))
-
   return (
-    <div className="space-y-10 relative">
+    <div className="relative space-y-6 sm:space-y-8 md:space-y-10">
       <HeroMagic />
       <FeaturesBento />
       <LatestChangelog items={items} />
     </div>
   )
+
 }

@@ -13,7 +13,7 @@ export default function FeaturesBento() {
         {
             Icon: Bot,
             name: "體驗 誠問AI",
-            description: "立即體驗 AI 對話與推進工具，感受智慧驅動的生產力提升。",
+            description: "立即體驗 AI 對話與推進工具,感受智慧驅動的生產力提升。",
             href: "/spinai",
             cta: "查看更多",
             badge: "最受歡迎",
@@ -43,7 +43,7 @@ export default function FeaturesBento() {
         {
             Icon: Megaphone,
             name: "更新日誌",
-            description: "每週透明發布進度報告，了解我們如何快速迭代優化產品功能。",
+            description: "每週透明發布進度報告,了解我們如何快速迭代優化產品功能。",
             href: "/changelog",
             cta: "查看更新",
             badge: "每週更新",
@@ -72,7 +72,7 @@ export default function FeaturesBento() {
         {
             Icon: MessageSquare,
             name: "用戶回饋",
-            description: "你的建議直接影響產品 Roadmap，與我們一起共創更好的使用體驗。",
+            description: "你的建議直接影響產品 Roadmap,與我們一起共創更好的使用體驗。",
             href: "/feedback",
             cta: "提供意見",
             badge: "社群驅動",
@@ -96,7 +96,7 @@ export default function FeaturesBento() {
         {
             Icon: Rocket,
             name: "即將推出",
-            description: "全新客製化 AI 模組與智慧工作流正在開發中，敬請期待下一波重大升級。",
+            description: "全新客製化 AI 模組與智慧工作流正在開發中,敬請期待下一波重大升級。",
             href: "#",
             cta: "搶先預覽",
             badge: "開發中",
@@ -125,7 +125,6 @@ export default function FeaturesBento() {
         },
     ]
 
-    // ✅ 用 Variants 型別，並使用 cubicBezier()
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
@@ -147,7 +146,7 @@ export default function FeaturesBento() {
     }
 
     return (
-        <section className="space-y-8 py-4">
+        <section className="space-y-4 sm:space-y-6 md:space-y-8 py-3 sm:py-6 px-3 sm:px-6">
             {/* 標題區塊 */}
             <motion.div
                 initial={{ opacity: 0, y: -10 }}
@@ -163,22 +162,55 @@ export default function FeaturesBento() {
                     </span>
                 </div>
 
-                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100">
-  探索{" "}
-  <span className="inline-block align-baseline relative h-[1em]">
-    {/* 預留空間避免初始跳動 */}
-    {mounted ? (
-      <Highlighter action="highlight" color="#faf560ff">
-        OneLink
-      </Highlighter>
-    ) : (
-      <span className="invisible">OneLink</span> // 👈 SSR 階段預留空間
-    )}
-  </span>{" "}
-  生態系統
-</h2>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-slate-100 leading-tight px-4">
+                    {/* 手機版: 垂直排列 */}
+                    <span className="block sm:hidden">
+                        探索
+                        <span className="block mt-2 relative">
+                            {mounted ? (
+                                <Highlighter action="highlight" color="#faf560ff">
+                                    OneLink
+                                </Highlighter>
+                            ) : (
+                                <span className="invisible">OneLink</span>
+                            )}
+                        </span>
+                        <span className="block mt-2">生態系統</span>
+                    </span>
 
-                <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    {/* 平板版: 適度換行 */}
+                    <span className="hidden sm:block md:hidden">
+                        探索{" "}
+                        <span className="inline-block relative align-baseline">
+                            {mounted ? (
+                                <Highlighter action="highlight" color="#faf560ff">
+                                    OneLink
+                                </Highlighter>
+                            ) : (
+                                <span className="invisible">OneLink</span>
+                            )}
+                        </span>
+                        <br />
+                        生態系統
+                    </span>
+
+                    {/* 桌面版: 單行顯示 */}
+                    <span className="hidden md:inline">
+                        探索{" "}
+                        <span className="inline-block relative align-baseline">
+                            {mounted ? (
+                                <Highlighter action="highlight" color="#faf560ff">
+                                    OneLink
+                                </Highlighter>
+                            ) : (
+                                <span className="invisible">OneLink</span>
+                            )}
+                        </span>{" "}
+                        生態系統
+                    </span>
+                </h2>
+
+                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto px-4">
                     從 AI 對話到社群共創，體驗完整的智慧工作流程
                 </p>
             </motion.div>
@@ -190,22 +222,30 @@ export default function FeaturesBento() {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-10%" }}
             >
-                <BentoGrid className="lg:grid-rows-2">
-                    {features.map((feature, index) => {
+                <BentoGrid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 gap-2 sm:gap-3 lg:gap-4">
+                    {features.map((feature) => {
                         const { Icon, iconClass, iconBg, badge, badgeColor, ...rest } = feature
                         return (
-                            <motion.div key={feature.name} variants={itemVariants}>
+                            <motion.div
+                                key={feature.name}
+                                variants={itemVariants}
+                                className=""
+                            >
                                 <BentoCard
                                     Icon={() => (
-                                        <div className="relative">
-                                            <div className={`p-3 rounded-xl ${iconBg} backdrop-blur-sm transition-all duration-300`}>
+                                        <div className="relative min-h-[150px]">
+                                            <div
+                                                className={`p-2 sm:p-3 rounded-xl ${iconBg} backdrop-blur-sm transition-all duration-300`}
+                                            >
                                                 <Icon
                                                     className={`h-6 w-6 ${iconClass} text-transparent bg-clip-text transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`}
                                                     strokeWidth={2}
                                                 />
                                             </div>
                                             {badge && (
-                                                <div className={`absolute -top-1 -right-1 px-2 py-0.5 rounded-full text-[10px] font-medium border ${badgeColor} backdrop-blur-sm`}>
+                                                <div
+                                                    className={`absolute -top-1 -right-1 px-1.5 py-0.5 rounded-full text-[10px] font-medium border ${badgeColor} backdrop-blur-sm`}
+                                                >
                                                     {badge}
                                                 </div>
                                             )}
@@ -224,7 +264,7 @@ export default function FeaturesBento() {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.8 }}
-                className="flex items-center justify-center gap-2 text-sm text-slate-500 dark:text-slate-400"
+                className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400"
             >
                 <Zap className="w-4 h-4 text-blue-500" />
                 <span>持續進化中，更多功能即將解鎖</span>
