@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="min-h-dvh flex flex-col">
           <header className="border-b">
             <div className="mx-auto max-w-5xl px-4 h-14 flex items-center justify-between">
-              <Link href="/" className="font-semibold tracking-tight">OneLink Hub</Link>
+              <Link href="/" className="font-semibold tracking-tight">OneLink</Link>
               <nav className="flex gap-4 text-sm">
                 <Link href="/changelog">更新日誌</Link>
                 <Link href="/feedback">回饋</Link>
@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
           <footer className="border-t">
             <div className="mx-auto max-w-5xl px-4 py-6 text-sm text-muted-foreground">
-              © {new Date().getFullYear()} OneLink Hub. All rights reserved.
+              © {new Date().getFullYear()} OneLink. All rights reserved.
             </div>
           </footer>
         </div>

@@ -32,7 +32,7 @@ export default function CommunityPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.5 }}
             >
-              加入誠交 LINE 社群
+              加入誠交 LINE 官方社群
             </motion.h2>
 
             <motion.p
@@ -51,9 +51,10 @@ export default function CommunityPage() {
               transition={{ delay: 0.8, duration: 0.6 }}
             >
               <Link
-                href="https://example.com/line"
+                href="https://lin.ee/YtoFB7h2"
                 target="_blank"
-                className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold shadow-md hover:shadow-lg hover:scale-105 hover:from-green-600 hover:to-emerald-700 transition-all duration-300"
               >
                 立即加入
               </Link>

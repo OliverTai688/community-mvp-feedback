@@ -57,6 +57,8 @@ export default function AboutPage() {
     viewport: { once: true, amount: 0.2 },
   }
 
+  const [showOptions, setShowOptions] = useState(false)
+
   return (
     <div className="relative">
       {/* Gradient Background */}
@@ -535,16 +537,61 @@ export default function AboutPage() {
 
 
             {/* 徽章動畫 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-            >
-              <Badge className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-lg font-semibold px-8 py-3 rounded-full shadow-md hover:shadow-lg transition">
-                誠交俱樂部 2025
-              </Badge>
-            </motion.div>
+            {/* CTA 按鈕區 */}
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ delay: 0.4, duration: 0.6 }}
+  className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10"
+>
+  {/* 主要按鈕：參加說明會 */}
+  <button
+    onClick={() => setShowOptions(true)}
+    className="px-8 py-3 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold shadow-md hover:shadow-lg transition-transform hover:scale-105"
+  >
+    加入誠交俱樂部
+  </button>
+
+  {/* 備註或年份 */}
+  {/* <Badge className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-lg font-semibold px-8 py-3 rounded-full shadow-md hover:shadow-lg transition">
+    誠交俱樂部 2025
+  </Badge> */}
+</motion.div>
+
+{/* 彈出選擇視窗 */}
+{showOptions && (
+  <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">
+    <div className="bg-white rounded-2xl shadow-2xl p-8 text-center space-y-6 w-[90%] max-w-md">
+      <h3 className="text-2xl font-bold text-gray-900">選擇想參加的說明會場次</h3>
+      <div className="flex flex-col gap-4">
+        <a
+          href="https://forms.gle/Ri2MrMEiVX24HqVm6"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-6 py-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold hover:scale-105 transition"
+        >
+          中壢場
+        </a>
+        <a
+          href="https://forms.gle/sdv3cDB9ThppJmLG9"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold hover:scale-105 transition"
+        >
+          台北場
+        </a>
+      </div>
+      <button
+        onClick={() => setShowOptions(false)}
+        className="text-sm text-gray-500 hover:text-gray-700"
+      >
+        取消
+      </button>
+    </div>
+  </div>
+)}
+
           </div>
 
         </motion.section>
