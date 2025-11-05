@@ -88,7 +88,7 @@ export default function FeedbackPage() {
         {/* Header Image */}
         <div className="w-full overflow-hidden rounded-2xl shadow-md shadow-indigo-100">
           <Image
-            src="https://plus.unsplash.com/premium_photo-1681426327290-1ec5fb4d3dd8?ixlib=rb-4.1.0&auto=format&fit=crop&w=2013&q=80"
+            src="https://images.unsplash.com/photo-1487611459768-bd414656ea10?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2340"
             alt="Feedback illustration - people collaborating"
             width={997}
             height={712}
