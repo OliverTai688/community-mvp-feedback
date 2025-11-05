@@ -14,40 +14,40 @@ type Item = {
 }
 
 export default function LatestChangelog({ items }: { items: Item[] }) {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.1,
-      },
-    },
-  }
+  // const containerVariants = {
+  //   hidden: { opacity: 0 },
+  //   visible: {
+  //     opacity: 1,
+  //     transition: {
+  //       staggerChildren: 0.08,
+  //       delayChildren: 0.1,
+  //     },
+  //   },
+  // }
 
   // ✅ 使用 cubicBezier() 修正
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.5, ease: cubicBezier(0.22, 1, 0.36, 1) },
-    },
-  }
+  // const itemVariants: Variants = {
+  //   hidden: { opacity: 0, y: 20, scale: 0.95 },
+  //   visible: {
+  //     opacity: 1,
+  //     y: 0,
+  //     scale: 1,
+  //     transition: { duration: 0.5, ease: cubicBezier(0.22, 1, 0.36, 1) },
+  //   },
+  // }
 
   // 計算日期距離現在多久
-  const getTimeAgo = (dateString: string) => {
-    const date = new Date(dateString)
-    const now = new Date()
-    const diffInDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24))
+  // const getTimeAgo = (dateString: string) => {
+  //   const date = new Date(dateString)
+  //   const now = new Date()
+  //   const diffInDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24))
 
-    if (diffInDays === 0) return "今天"
-    if (diffInDays === 1) return "昨天"
-    if (diffInDays < 7) return `${diffInDays} 天前`
-    if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} 週前`
-    return date.toLocaleDateString("zh-TW", { month: "long", day: "numeric" })
-  }
+  //   if (diffInDays === 0) return "今天"
+  //   if (diffInDays === 1) return "昨天"
+  //   if (diffInDays < 7) return `${diffInDays} 天前`
+  //   if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} 週前`
+  //   return date.toLocaleDateString("zh-TW", { month: "long", day: "numeric" })
+  // }
 
   return (
     <section className="space-y-6 py-4">

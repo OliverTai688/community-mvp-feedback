@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import { LightRays } from "@/components/ui/light-rays"
+import Image from "next/image"
 
 export default function FeedbackPage() {
   const router = useRouter()
@@ -67,7 +68,7 @@ export default function FeedbackPage() {
         setErrors({})
         router.refresh()
       }
-    } catch (error) {
+    } catch (_error) {
       setOk(false)
     } finally {
       setLoading(false)
@@ -86,11 +87,14 @@ export default function FeedbackPage() {
       <div className="relative max-w-xl   mx-auto px-4 py-12 space-y-6 bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-100 p-6">
         {/* Header Image */}
         <div className="w-full overflow-hidden rounded-2xl shadow-md shadow-indigo-100">
-          <img
+          <Image
             src="https://plus.unsplash.com/premium_photo-1681426327290-1ec5fb4d3dd8?ixlib=rb-4.1.0&auto=format&fit=crop&w=2013&q=80"
             alt="Feedback illustration - people collaborating"
-            className="w-full h-48 object-cover object-center transition-transform duration-500 hover:scale-105"
+            width={997}
+            height={712}
+            className="w-full h-48 object-cover object-center transition-transform duration-500 hover:scale-105 rounded-2xl shadow-md shadow-indigo-100"
           />
+
         </div>
 
         {/* Title */}

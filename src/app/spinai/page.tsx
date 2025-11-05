@@ -1,7 +1,5 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import { SpinAIIntro } from "@/components/spinai/SpinAIIntro"
 
 export default function SpinAIPage() {

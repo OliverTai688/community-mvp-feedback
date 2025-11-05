@@ -19,7 +19,6 @@ interface ChangelogCardProps {
 export function ChangelogCard({
   id,
   title,
-  content,
   createdAt,
   coverUrl,
   tags = [],

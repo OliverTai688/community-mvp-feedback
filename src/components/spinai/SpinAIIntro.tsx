@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { Calendar, Clock, ArrowRight, Zap, Target, Brain } from "lucide-react"
+import { Clock, ArrowRight, Zap, Target, Brain } from "lucide-react"
+import Image from "next/image"
 
 export function SpinAIIntro() {
     const targetDate = new Date()
     targetDate.setDate(targetDate.getDate() + 7)
-    const [remaining, setRemaining] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+    const [_, setRemaining] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
 
     useEffect(() => {
         const target = new Date()
@@ -267,11 +268,13 @@ export function SpinAIIntro() {
   className="relative"
 >
   <div className="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200 rounded-2xl overflow-hidden h-72 flex items-center justify-center">
-    <img
-      src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2340"
-      alt="AI Example"
-      className="object-cover w-full h-full"
-    />
+    <Image
+  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2340"
+  alt="AI Example"
+  width={997}   // ← 建議填上實際圖片寬度
+  height={664}  // ← 建議填上實際高度比例 (約 3:2 或你想要的比例)
+  className="object-cover w-full h-full"
+/>
   </div>
 </motion.div>
 
