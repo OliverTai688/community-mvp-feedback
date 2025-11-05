@@ -10,36 +10,36 @@ export default function FeaturesBento() {
     const [mounted, setMounted] = useState(false)
     useEffect(() => setMounted(true), [])
     const features = [
-        {
-            Icon: Bot,
-            name: "體驗 誠問AI",
-            description: "立即體驗 AI 對話與推進工具,感受智慧驅動的生產力提升。",
-            href: "/spinai",
-            cta: "查看更多",
-            badge: "最受歡迎",
-            badgeColor: "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800",
-            iconClass:
-                "bg-gradient-to-br from-blue-400 via-indigo-500 to-purple-600",
-            iconBg: "bg-blue-500/10 group-hover:bg-blue-500/20",
-            background: (
-                <div className="absolute inset-0 overflow-hidden">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8 }}
-                        className="absolute -right-20 -top-20 w-72 h-72 rounded-full bg-gradient-to-br from-blue-300/40 via-indigo-300/30 to-purple-300/20 blur-3xl"
-                    />
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="absolute left-10 bottom-10 w-48 h-48 rounded-full bg-blue-200/30 blur-2xl"
-                    />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(59,130,246,0.05),transparent)]" />
-                </div>
-            ),
-            className: "lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2",
-        },
+        // {
+        //     Icon: Bot,
+        //     name: "體驗 誠問AI",
+        //     description: "立即體驗 AI 對話與推進工具,感受智慧驅動的生產力提升。",
+        //     href: "/spinai",
+        //     cta: "查看更多",
+        //     badge: "最受歡迎",
+        //     badgeColor: "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800",
+        //     iconClass:
+        //         "bg-gradient-to-br from-blue-400 via-indigo-500 to-purple-600",
+        //     iconBg: "bg-blue-500/10 group-hover:bg-blue-500/20",
+        //     background: (
+        //         <div className="absolute inset-0 overflow-hidden">
+        //             <motion.div
+        //                 initial={{ opacity: 0, scale: 0.8 }}
+        //                 whileInView={{ opacity: 1, scale: 1 }}
+        //                 transition={{ duration: 0.8 }}
+        //                 className="absolute -right-20 -top-20 w-72 h-72 rounded-full bg-gradient-to-br from-blue-300/40 via-indigo-300/30 to-purple-300/20 blur-3xl"
+        //             />
+        //             <motion.div
+        //                 initial={{ opacity: 0, scale: 0.8 }}
+        //                 whileInView={{ opacity: 1, scale: 1 }}
+        //                 transition={{ duration: 0.8, delay: 0.2 }}
+        //                 className="absolute left-10 bottom-10 w-48 h-48 rounded-full bg-blue-200/30 blur-2xl"
+        //             />
+        //             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(59,130,246,0.05),transparent)]" />
+        //         </div>
+        //     ),
+        //     className: "lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2",
+        // },
         {
             Icon: Megaphone,
             name: "更新日誌",
