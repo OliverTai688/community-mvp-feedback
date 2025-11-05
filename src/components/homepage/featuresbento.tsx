@@ -222,7 +222,10 @@ export default function FeaturesBento() {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-10%" }}
             >
-                <BentoGrid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 gap-2 sm:gap-3 lg:gap-4">
+                <BentoGrid
+                    className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ${features.length > 3 ? "lg:grid-rows-2" : "lg:grid-rows-1"
+                        } gap-2 sm:gap-3 lg:gap-4`}
+                >
                     {features.map((feature) => {
                         const { Icon, iconClass, iconBg, badge, badgeColor, ...rest } = feature
                         return (

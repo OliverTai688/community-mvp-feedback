@@ -3,6 +3,7 @@ import HeroMagic from "@/components/homepage/heromagic"
 import FeaturesBento from "@/components/homepage/featuresbento"
 import LatestChangelog from "@/components/homepage/latestchangelog"
 import { QuickStartModal } from "@/components/homepage/QuickStartModal"
+import { FAQSection } from "@/components/homepage/FAQsection"
 
 export default async function HomePage() {
   // 取得所有 changelog 供底部展示
@@ -35,8 +36,9 @@ export default async function HomePage() {
       )}
 
       <HeroMagic />
-      <FeaturesBento />
       <LatestChangelog items={items} />
+      <FeaturesBento />
+      <FAQSection /> 
     </div>
   )
 }
