@@ -1,25 +1,28 @@
+// ---------- datasource ----------
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
+// ---------- generator ----------
 generator client {
   provider = "prisma-client-js"
 }
 
+// ---------- models ----------
 model Changelog {
-  id        String   @id @default(cuid())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   title     String
-  content   String   // Markdown 或純文字
+  content   String
   tags      String[] @default([])
-  coverUrl  String?             // 單張封面
-  images    String[] @default([]) // 多張圖片 URL
+  coverUrl  String?
+  images    String[] @default([])
   published Boolean  @default(true)
   createdAt DateTime @default(now())
 }
 
 model Feedback {
-  id        String   @id @default(cuid())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   email     String?
   message   String
   page      String?
