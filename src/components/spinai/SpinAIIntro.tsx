@@ -371,7 +371,7 @@ export function SpinAIIntro() {
                                     className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
                                 >
                                     <a
-                                        href="https://tally.so/r/wQ6aqg"
+                                        href="https://tally.so/r/npl6EE"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="px-8 py-4 bg-white text-blue-600 hover:bg-blue-50 rounded-lg font-bold text-lg transition-all duration-300 hover:shadow-xl flex items-center gap-2 group"
